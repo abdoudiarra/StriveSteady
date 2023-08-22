@@ -5,8 +5,14 @@ using System.Threading.Tasks;
 
 namespace StriveSteady.Controllers
 {
-    public class GoalsController
+    public class GoalsController : Controller
     {
+        private readonly StriveSteadyContext _context;
+
+        public GoalsController(StriveSteadyContext _context)
+        {
+            _context = context;
+        }
         
     }
 }
