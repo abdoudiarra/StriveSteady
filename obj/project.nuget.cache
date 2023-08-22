@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "U+JrSOj9hUIBeUh7TgDBP9AtNQtYFNifZbSNO2twZXWzAUCojP1S8Pij0mhyH8YmpJjIAbNm+Rhsthyn0mf02w==",
+  "dgSpecHash": "PzicdZYTwpe30A3VD/xRkt7dG+Ry2Km6vixAbmZb4FI2ar8W3c99/nD0hWFZMUhUmBQkS8pao5M2dELUuf8Msw==",
   "success": true,
   "projectFilePath": "/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/StriveSteady.csproj",
   "expectedPackageFiles": [
@@ -233,7 +233,14 @@
     "/Users/mac/.nuget/packages/system.threading.timer/4.3.0/system.threading.timer.4.3.0.nupkg.sha512",
     "/Users/mac/.nuget/packages/system.windows.extensions/6.0.0/system.windows.extensions.6.0.0.nupkg.sha512",
     "/Users/mac/.nuget/packages/system.xml.readerwriter/4.3.0/system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "/Users/mac/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512"
+    "/Users/mac/.nuget/packages/system.xml.xdocument/4.3.0/system.xml.xdocument.4.3.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/xunit/2.5.0/xunit.2.5.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/xunit.abstractions/2.0.3/xunit.abstractions.2.0.3.nupkg.sha512",
+    "/Users/mac/.nuget/packages/xunit.analyzers/1.2.0/xunit.analyzers.1.2.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/xunit.assert/2.5.0/xunit.assert.2.5.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/xunit.core/2.5.0/xunit.core.2.5.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/xunit.extensibility.core/2.5.0/xunit.extensibility.core.2.5.0.nupkg.sha512",
+    "/Users/mac/.nuget/packages/xunit.extensibility.execution/2.5.0/xunit.extensibility.execution.2.5.0.nupkg.sha512"
   ],
   "logs": []
 }
