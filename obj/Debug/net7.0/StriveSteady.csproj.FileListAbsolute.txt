@@ -279,3 +279,16 @@
 /Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/runtimes/win/lib/net6.0/System.Security.Cryptography.ProtectedData.dll
 /Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/runtimes/win/lib/net6.0/System.Windows.Extensions.dll
 /Users/mac/Desktop/Projects/StriveSteady/StriveSteady/obj/Debug/net7.0/StriveSteady.csproj.CopyComplete
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/StriveSteady.Tests/obj/project.assets.json
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/StriveSteady.Tests/obj/StriveSteady.Tests.csproj.nuget.dgspec.json
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/xunit.abstractions.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/xunit.assert.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/xunit.core.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/xunit.execution.dotnet.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/Microsoft.OpenApi.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/Swashbuckle.AspNetCore.Swagger.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerGen.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/Swashbuckle.AspNetCore.SwaggerUI.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/obj/Debug/net7.0/StriveSteady.MvcApplicationPartsAssemblyInfo.cs
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net7.0/StriveSteady.xml
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/obj/Debug/net7.0/StriveSteady.xml

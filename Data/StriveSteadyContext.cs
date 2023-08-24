@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StriveSteady.Models;
 
+
 namespace StriveSteady.Data
 {
     public class StriveSteadyContext : DbContext
