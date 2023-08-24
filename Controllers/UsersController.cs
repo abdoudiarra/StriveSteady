@@ -7,10 +7,11 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StriveSteady.Data;
 using StriveSteady.Models;
+using API.Controllers;
 
 namespace StriveSteady.Controllers
 {
-    public class UsersController : Controller
+    public class UsersController : ControllerBase
     {
         private readonly StriveSteadyContext _context;
 
@@ -19,62 +20,40 @@ namespace StriveSteady.Controllers
             _context = context;
         }
 
-        // GET: Users
-        public async Task<IActionResult> Index()
+        [HttpPost("Register")]
+        public async Task<ActionResult<User>> Register(User user)
         {
-              return _context.User != null ? 
-                          View(await _context.User.ToListAsync()) :
-                          Problem("Entity set 'StriveSteadyContext.User'  is null.");
+            var userRegister = new User
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email
+            };
+
+            _context.User.Add(userRegister);
+            await _context.SaveChangesAsync();
+
+            return userRegister;
         }
 
         // GET: Users/Details/5
-        public async Task<IActionResult> Details(int? id)
+        [HttpGet("Login")]
+        public async Task<IActionResult> LogIn(int? id)
         {
             if (id == null || _context.User == null)
             {
-                return NotFound();
+                throw new Exception("User with id "+ id +  " does not exist");
             }
 
             var user = await _context.User
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (user == null)
             {
-                return NotFound();
+                throw new Exception("User with id"+ id +  "does not exist");
             }
 
-            return View(user);
-        }
-
-        // POST: Users/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,FirstName,LastName,Email")] User user)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(user);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
-            }
-            return View(user);
-        }
-
-        // GET: Users/Edit/5
-        public async Task<IActionResult> Edit(int? id)
-        {
-            if (id == null || _context.User == null)
-            {
-                return NotFound();
-            }
-
-            var user = await _context.User.FindAsync(id);
-            if (user == null)
-            {
-                return NotFound();
-            }
-            return View(user);
+            return Ok(user);
         }
 
         // POST: Users/Edit/5
@@ -109,11 +88,12 @@ namespace StriveSteady.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(user);
+            return Ok(user);
         }
 
+        [HttpDelete("Users/delete/{id}")]
         // GET: Users/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<ActionResult> Delete(int id)
         {
             if (id == null || _context.User == null)
             {
@@ -121,13 +101,17 @@ namespace StriveSteady.Controllers
             }
 
             var user = await _context.User
-                .FirstOrDefaultAsync(m => m.Id == id);
+                .FirstOrDefaultAsync(u => u.Id == id);
+
             if (user == null)
             {
                 return NotFound();
             }
 
-            return View(user);
+            _context.User.Remove(user);
+            _context.SaveChanges();
+
+            return Ok(user);
         }
 
         // POST: Users/Delete/5

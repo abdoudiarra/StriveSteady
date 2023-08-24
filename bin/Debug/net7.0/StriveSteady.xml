@@ -28,5 +28,17 @@
         <member name="M:StriveSteady.Migrations.added_goals_table.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:StriveSteady.Migrations.added_id_as_key_user">
+            <inheritdoc />
+        </member>
+        <member name="M:StriveSteady.Migrations.added_id_as_key_user.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StriveSteady.Migrations.added_id_as_key_user.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StriveSteady.Migrations.added_id_as_key_user.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>
