@@ -39,7 +39,7 @@ namespace StriveSteady.Controllers
 
         // GET: Users/Details/5
         [HttpGet("Login")]
-        public async Task<IActionResult> LogIn(int? id)
+        public async Task<User> LogIn(int? id)
         {
             if (id == null || _context.User == null)
             {
@@ -53,7 +53,7 @@ namespace StriveSteady.Controllers
                 throw new Exception("User with id"+ id +  "does not exist");
             }
 
-            return Ok(user);
+            return user;
         }
 
         // POST: Users/Edit/5
