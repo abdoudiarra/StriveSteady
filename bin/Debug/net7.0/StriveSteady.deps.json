@@ -12,9 +12,11 @@
           "Microsoft.EntityFrameworkCore.Sqlite": "7.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.10",
           "Microsoft.EntityFrameworkCore.Tools": "7.0.10",
+          "Microsoft.TestPlatform": "17.7.1",
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": "7.0.9",
           "Swashbuckle.AspNetCore": "6.2.3",
-          "xunit": "2.5.0"
+          "xunit": "2.5.0",
+          "xunit.runner.visualstudio": "2.5.0"
         },
         "runtime": {
           "StriveSteady.dll": {}
@@ -1426,6 +1428,7 @@
           }
         }
       },
+      "Microsoft.TestPlatform/17.7.1": {},
       "Microsoft.VisualStudio.Web.CodeGeneration/7.0.9": {
         "dependencies": {
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
@@ -2779,7 +2782,8 @@
             "fileVersion": "2.5.0.0"
           }
         }
-      }
+      },
+      "xunit.runner.visualstudio/2.5.0": {}
     }
   },
   "libraries": {
@@ -3529,6 +3533,13 @@
       "sha512": "sha512-N4KeF3cpcm1PUHym1RmakkzfkEv3GRMyofVv40uXsQhCQeglr2OHNcUk2WOG51AKpGO8ynGpo9M/kFXSzghwug==",
       "path": "microsoft.sqlserver.server/1.0.0",
       "hashPath": "microsoft.sqlserver.server.1.0.0.nupkg.sha512"
+    },
+    "Microsoft.TestPlatform/17.7.1": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-mqVKMGtOQ2edqwgSpISgHz63AbC7nidrimgD/j4MwkL3XM/Td+LHMVSfD78p5EzcCLRuj8F+0NADYZuXBvvviQ==",
+      "path": "microsoft.testplatform/17.7.1",
+      "hashPath": "microsoft.testplatform.17.7.1.nupkg.sha512"
     },
     "Microsoft.VisualStudio.Web.CodeGeneration/7.0.9": {
       "type": "package",
@@ -4488,6 +4499,13 @@
       "sha512": "sha512-7+v2Bvp+1ew1iMGQVb1glICi8jcNdHbRUX6Ru0dmJBViGdjiS7kyqcX2VxleQhFbKNi+WF0an7/TeTXD283RlQ==",
       "path": "xunit.extensibility.execution/2.5.0",
       "hashPath": "xunit.extensibility.execution.2.5.0.nupkg.sha512"
+    },
+    "xunit.runner.visualstudio/2.5.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-+Gp9vuC2431yPyKB15YrOTxCuEAErBQUTIs6CquumX1F073UaPHGW0VE/XVJLMh9W4sXdz3TBkcHdFWZrRn2Hw==",
+      "path": "xunit.runner.visualstudio/2.5.0",
+      "hashPath": "xunit.runner.visualstudio.2.5.0.nupkg.sha512"
     }
   }
 }
