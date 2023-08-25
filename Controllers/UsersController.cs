@@ -23,12 +23,34 @@ namespace StriveSteady.Controllers
         [HttpPost("Register")]
         public async Task<ActionResult<User>> Register(User user)
         {
+            if(user.FirstName == null || user.FirstName == "" || user.LastName == null || user.LastName == "" || user.Email == null || user.Email == "" || user.Password == null || user.Password == "" || user.PasswordRepeat == null || user.PasswordRepeat == "")
+            {
+                throw new NullReferenceException("User registration failed: Please fill in all required fields.");
+            }
+
+            if(user.Password != user.PasswordRepeat)
+            {
+                throw new Exception("Password and Password repeat are not identical");
+            }
+
+            if(user.Password.Length < 5 )
+            {
+                throw new Exception("Password not long enough (minimum 5 characters)");
+            }
+
+             if(user.FirstName.Length < 3 || user.LastName.Length < 3)
+            {
+                throw new Exception("First name or last name not long enough (minimum 3 characters)");
+            }
+
             var userRegister = new User
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
-                Email = user.Email
+                Email = user.Email,
+                Password = user.Password,
+                PasswordRepeat = user.PasswordRepeat
             };
 
             _context.User.Add(userRegister);
