@@ -7,7 +7,9 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using StriveSteady.Data;
 using StriveSteady.Models;
+using System.Security.Cryptography;
 using API.Controllers;
+using System.Text;
 
 namespace StriveSteady.Controllers
 {
@@ -19,6 +21,54 @@ namespace StriveSteady.Controllers
         {
             _context = context;
         }
+
+        //encryption function (copy pasted from the internet)
+        public static string EncryptString(string plainText, string key, string iv)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Encoding.UTF8.GetBytes(key);
+                aesAlg.IV = Encoding.UTF8.GetBytes(iv);
+
+                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msEncrypt = new MemoryStream())
+                {
+                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                    {
+                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                        {
+                            swEncrypt.Write(plainText);
+                        }
+                    }
+                    return Convert.ToBase64String(msEncrypt.ToArray());
+                }
+            }
+        }
+
+        //Decrypt function (copy pasted from the internet)
+        public static string DecryptString(string cipherText, string key, string iv)
+        {
+            using (Aes aesAlg = Aes.Create())
+            {
+                aesAlg.Key = Encoding.UTF8.GetBytes(key);
+                aesAlg.IV = Encoding.UTF8.GetBytes(iv);
+
+                ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
+
+                using (MemoryStream msDecrypt = new MemoryStream(Convert.FromBase64String(cipherText)))
+                {
+                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
+                    {
+                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                        {
+                            return srDecrypt.ReadToEnd();
+                        }
+                    }
+                }
+            }
+        }
+
 
         [HttpPost("Register")]
         public async Task<ActionResult<User>> Register(User user)
@@ -43,15 +93,19 @@ namespace StriveSteady.Controllers
                 throw new Exception("First name or last name not long enough (minimum 3 characters)");
             }
 
+            var passwordEnc = EncryptString(user.Password, "0123456789ABCDEF", "FEDCBA9876543210");
+            var passwordRepeatEnc = EncryptString(user.PasswordRepeat, "0123456789ABCDEF", "FEDCBA9876543210");
             var userRegister = new User
             {
                 Id = user.Id,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                Password = user.Password,
-                PasswordRepeat = user.PasswordRepeat
+                Password = passwordEnc,
+                PasswordRepeat = passwordRepeatEnc
             };
+
+            
 
             _context.User.Add(userRegister);
             await _context.SaveChangesAsync();
@@ -60,8 +114,8 @@ namespace StriveSteady.Controllers
         }
 
         // GET: Users/Details/5
-        [HttpGet("Login")]
-        public async Task<User> LogIn(int? id)
+        [HttpGet("GetUserById")]
+        public async Task<User> GetUserById(int? id)
         {
             if (id == null || _context.User == null)
             {
@@ -76,6 +130,38 @@ namespace StriveSteady.Controllers
             }
 
             return user;
+        }
+
+        public async Task<User> GetUserByMail(string mail)
+        {
+
+            var user = await _context.User
+                .FirstOrDefaultAsync(m => m.Email == mail);
+            
+            if (user == null)
+            {
+                throw new Exception("User with mail " +mail + " does not exist");
+            }
+
+            return user;
+        }
+
+        [HttpGet("LogIn")]
+        public async Task<User> LogIn(string email, string password)
+        {
+            var user = await GetUserByMail(email);
+
+            //decrypting password
+            var passwordDecrypt = DecryptString(user.Password, "0123456789ABCDEF", "FEDCBA9876543210");
+
+            //validation password
+            if (passwordDecrypt != password)
+            {
+                throw new Exception("Incorrect password, try again");
+            }
+
+            return user;
+            
         }
 
         // POST: Users/Edit/5

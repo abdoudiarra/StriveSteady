@@ -59,7 +59,10 @@ public class UserTests
         _context = new StriveSteadyContext(options);
         _controller = new UsersController(_context);
 
-        
+        //remove everything from database
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
         //mapper
         var config = new MapperConfiguration(cfg => cfg.CreateMap<ActionResult<User>, User>());
         var mapper = config.CreateMapper();
@@ -99,10 +102,10 @@ public class UserTests
         var result2 = await _controller.Register(user2);
         var result3 = await _controller.Register(user3);
 
-        var userLoggedIn = _controller.LogIn(3);
+        var userLoggedIn = _controller.GetUserById(3);
 
         Assert.NotNull(userLoggedIn);
-        Assert.Equivalent(user3, userLoggedIn.Result);
+        Assert.Equivalent(user3.Id, userLoggedIn.Result.Id);
 
     }
 
@@ -117,6 +120,10 @@ public class UserTests
 
         _context = new StriveSteadyContext(options);
         _controller = new UsersController(_context);
+
+        //remove everything from database
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
 
         // Test with null or empty values for required fields
         var userWithEmptyValues = new User
@@ -166,6 +173,10 @@ public class UserTests
         _context = new StriveSteadyContext(options);
         _controller = new UsersController(_context);
 
+        //remove everything from database
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
         var user = new User
         {
             Id = 3,
@@ -203,6 +214,10 @@ public class UserTests
         _context = new StriveSteadyContext(options);
         _controller = new UsersController(_context);
 
+        //remove everything from database
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
         var user = new User
         {
             Id = 3,
@@ -239,6 +254,10 @@ public class UserTests
         _context = new StriveSteadyContext(options);
         _controller = new UsersController(_context);
 
+        //remove everything from database
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
         var user = new User
         {
             Id = 3,
@@ -264,6 +283,206 @@ public class UserTests
     }
 
     //Login test
+    //User will Login using email and password.
+    [Fact]
+    public async Task Returns_Correct_User_In_Login()
+    {
+        //User a in-memory database to not touch the actual database
+        var options = new DbContextOptionsBuilder<StriveSteadyContext>()
+            .UseInMemoryDatabase(databaseName: "TestDatabase")
+            .Options;
 
+        _context = new StriveSteadyContext(options);
+        _controller = new UsersController(_context);
+
+        //remove everything from database
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
+
+        //mapper
+        var config = new MapperConfiguration(cfg => cfg.CreateMap<ActionResult<User>, User>());
+        var mapper = config.CreateMapper();
+
+        //create 3 users in database
+        var user1 = new User
+        {
+            Id = 1,
+            FirstName = "Johnny",
+            LastName = "Test",
+            Email = "JoTest@gmail.com",
+            Password = "klmno",
+            PasswordRepeat = "klmno"
+        };
+
+        var user2 = new User
+        {
+            Id = 2,
+            FirstName = "Michael",
+            LastName = "Jackson",
+            Email = "MikeJack@gmail.com",
+            Password = "uvwxy",
+            PasswordRepeat = "uvwxy"
+        };
+
+        var user3 = new User
+        {
+            Id = 3,
+            FirstName = "Bron",
+            LastName = "James",
+            Email = "BronJames@gmail.com",
+            Password = "zabcd",
+            PasswordRepeat = "zabcd"
+        };
+
+        //insert the users in the database
+        await _controller.Register(user1);
+        await _controller.Register(user2);
+        await _controller.Register(user3);
+        //connect as a user
+        var userLoggedIn = await _controller.LogIn("MikeJack@gmail.com", "uvwxy");
+        //assert user returned correctly
+        Assert.Equivalent(user2.Id, userLoggedIn.Id);
+    }
+
+    
+    [Fact]
+    public async Task Returns_Bad_Password_For_User()
+    {
+        //User a in-memory database to not touch the actual database
+        var options = new DbContextOptionsBuilder<StriveSteadyContext>()
+            .UseInMemoryDatabase(databaseName: "TestDatabase")
+            .Options;
+
+        _context = new StriveSteadyContext(options);
+        _controller = new UsersController(_context);
+
+        //remove everything from database
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
+
+        //mapper
+        var config = new MapperConfiguration(cfg => cfg.CreateMap<ActionResult<User>, User>());
+        var mapper = config.CreateMapper();
+
+        //create 3 users in database
+        var user1 = new User
+        {
+            Id = 1,
+            FirstName = "Johnny",
+            LastName = "Test",
+            Email = "JoTest@gmail.com",
+            Password = "klmno",
+            PasswordRepeat = "klmno"
+        };
+
+        var user2 = new User
+        {
+            Id = 2,
+            FirstName = "Michael",
+            LastName = "Jackson",
+            Email = "MikeJack@gmail.com",
+            Password = "uvwxy",
+            PasswordRepeat = "uvwxy"
+        };
+
+        var user3 = new User
+        {
+            Id = 3,
+            FirstName = "Bron",
+            LastName = "James",
+            Email = "BronJames@gmail.com",
+            Password = "zabcd",
+            PasswordRepeat = "zabcd"
+        };
+
+        //insert the users in the database
+        // Test registration with users that have null or empty values
+        await _controller.Register(user1);
+        await _controller.Register(user2);
+        await _controller.Register(user3);
+
+        async Task<User> LoginAndReturnUserAsync(string mail, string password)
+        {
+            var result = await _controller.LogIn(mail, password);
+            return result; // Assuming your controller returns ActionResult<User>
+        }
+
+        //connect as a user
+        var userLoggedIn = await Assert.ThrowsAsync<Exception>(() => LoginAndReturnUserAsync("MikeJack@gmail.com", "wrongPassword"));
+
+        Assert.Equal("Incorrect password, try again", userLoggedIn.Message);
+    }
+
+    [Fact]
+    public async Task Returns_User_Does_Not_Exist()
+    {
+        //User a in-memory database to not touch the actual database
+        var options = new DbContextOptionsBuilder<StriveSteadyContext>()
+            .UseInMemoryDatabase(databaseName: "TestDatabase")
+            .Options;
+
+        _context = new StriveSteadyContext(options);
+        _controller = new UsersController(_context);
+
+        //remove everything from database
+        _context.Database.EnsureDeleted();
+        _context.Database.EnsureCreated();
+
+
+        //mapper
+        var config = new MapperConfiguration(cfg => cfg.CreateMap<ActionResult<User>, User>());
+        var mapper = config.CreateMapper();
+
+        //create 3 users in database
+        var user1 = new User
+        {
+            Id = 1,
+            FirstName = "Johnny",
+            LastName = "Test",
+            Email = "JoTest@gmail.com",
+            Password = "klmno",
+            PasswordRepeat = "klmno"
+        };
+
+        var user2 = new User
+        {
+            Id = 2,
+            FirstName = "Michael",
+            LastName = "Jackson",
+            Email = "MikeJack@gmail.com",
+            Password = "uvwxy",
+            PasswordRepeat = "uvwxy"
+        };
+
+        var user3 = new User
+        {
+            Id = 3,
+            FirstName = "Bron",
+            LastName = "James",
+            Email = "BronJames@gmail.com",
+            Password = "zabcd",
+            PasswordRepeat = "zabcd"
+        };
+        //insert the users in the database
+        // Test registration with users that have null or empty values
+
+        await _controller.Register(user1);
+        await _controller.Register(user2);
+        await _controller.Register(user3);
+
+        async Task<User> LoginAndReturnUserAsync(string mail, string password)
+        {
+            var result = await _controller.LogIn(mail, password);
+            return result; // Assuming your controller returns ActionResult<User>
+        }
+
+        //connect as a user
+        var userLoggedIn = await Assert.ThrowsAsync<Exception>(() => LoginAndReturnUserAsync("donotexist@yahoo.com","testmdp"));
+       
+        //assert user returned correctly
+        Assert.Equal("User with mail donotexist@yahoo.com does not exist", userLoggedIn.Message);
+    }
 
 }
