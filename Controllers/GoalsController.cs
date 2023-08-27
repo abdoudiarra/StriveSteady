@@ -19,6 +19,12 @@ namespace StriveSteady.Controllers
         {
             _context = context;
         }
+
+        //Create Goal
+        //Delete Goal
+        //Edit Goal
+        //Get AllGoals
+        //Get GoalByName
         
     }
 }

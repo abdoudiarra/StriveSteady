@@ -52,5 +52,17 @@
         <member name="M:StriveSteady.Migrations.added_password_users.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
             <inheritdoc />
         </member>
+        <member name="T:StriveSteady.Migrations.added_goals_and_subtasks_columns_and_updated_users">
+            <inheritdoc />
+        </member>
+        <member name="M:StriveSteady.Migrations.added_goals_and_subtasks_columns_and_updated_users.Up(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StriveSteady.Migrations.added_goals_and_subtasks_columns_and_updated_users.Down(Microsoft.EntityFrameworkCore.Migrations.MigrationBuilder)">
+            <inheritdoc />
+        </member>
+        <member name="M:StriveSteady.Migrations.added_goals_and_subtasks_columns_and_updated_users.BuildTargetModel(Microsoft.EntityFrameworkCore.ModelBuilder)">
+            <inheritdoc />
+        </member>
     </members>
 </doc>

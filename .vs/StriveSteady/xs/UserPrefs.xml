@@ -1,10 +1,9 @@
 ﻿<Properties GitUserInfo="UsingGIT" StartupConfiguration="{7B6A0896-C1E0-4967-8C22-D16669DF2DA4}|https">
-  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.Workbench ActiveDocument="StriveSteady.Tests/UserTests.cs">
     <Files>
-      <File FileName="Controllers/UsersController.cs" Line="55" Column="1" />
-      <File FileName="StriveSteady.Tests/UserTests.cs" Line="94" Column="47" />
+      <File FileName="Controllers/UsersController.cs" Line="158" Column="32" />
+      <File FileName="StriveSteady.Tests/UserTests.cs" Line="108" Column="59" />
+      <File FileName="Models/User.cs" Line="22" Column="37" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
@@ -12,22 +11,26 @@
           <Node name="StriveSteady">
             <Node name="StriveSteady">
               <Node name="Controllers" expanded="True" />
-              <Node name="Data" selected="True" />
+              <Node name="Models" expanded="True" />
+              <Node name="StriveSteady.Tests" expanded="True" />
               <Node name="appsettings.json" expanded="True" />
             </Node>
           </Node>
         </State>
+      </Pad>
+      <Pad Id="MonoDevelop.Debugger.WatchPad">
+        <State />
       </Pad>
       <Pad Id="MonoDevelop.UnitTesting.TestPad">
         <State name="__root__" />
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MultiItemStartupConfigurations />
   <MonoDevelop.Ide.ItemProperties.StriveSteady PreferredExecutionTarget="/System/Volumes/Preboot/Cryptexes/App/System/Applications/Safari.app" />
-  <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/Controllers/UsersController.cs" relfile="Controllers/UsersController.cs" line="44" column="1" />
-    </BreakpointStore>
-  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

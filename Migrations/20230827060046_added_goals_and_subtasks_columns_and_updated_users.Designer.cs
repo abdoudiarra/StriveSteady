@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StriveSteady.Data;
 
@@ -10,9 +11,11 @@ using StriveSteady.Data;
 namespace StriveSteady.Migrations
 {
     [DbContext(typeof(StriveSteadyContext))]
-    partial class StriveSteadyContextModelSnapshot : ModelSnapshot
+    [Migration("20230827060046_added_goals_and_subtasks_columns_and_updated_users")]
+    partial class added_goals_and_subtasks_columns_and_updated_users
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "7.0.10");

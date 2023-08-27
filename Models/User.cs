@@ -20,5 +20,6 @@ namespace StriveSteady.Models
         public string Password { get; set; }
         [Required]
         public string PasswordRepeat { get; set; }
+        public List<Goal> Goals { get; set; }
     }
 }
