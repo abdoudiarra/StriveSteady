@@ -15,7 +15,9 @@ namespace StriveSteady.Models
         public string Name { get; set; }
         public string Description {get; set;}
         public ImportanceType ImportanceType { get; set; }
+        [Required]
         public DateTime StartDate { get; set; }
+        [Required]
         public DateTime EndDate { get; set; }
         public GoalType GoalType { get; set; }
         public List<Subtask> Subtasks { get; set; }

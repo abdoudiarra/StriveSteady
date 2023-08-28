@@ -70,7 +70,7 @@ namespace StriveSteady.Controllers
         }
 
 
-        [HttpPost("Register")]
+        [HttpPost("User/Register")]
         public async Task<ActionResult<User>> Register(User user)
         {
             if(user.FirstName == null || user.FirstName == "" || user.LastName == null || user.LastName == "" || user.Email == null || user.Email == "" || user.Password == null || user.Password == "" || user.PasswordRepeat == null || user.PasswordRepeat == "")
@@ -114,7 +114,7 @@ namespace StriveSteady.Controllers
         }
 
         // GET: Users/Details/5
-        [HttpGet("GetUserById")]
+        [HttpGet("User/GetUserById")]
         public async Task<User> GetUserById(int? id)
         {
             if (id == null || _context.User == null)
@@ -132,6 +132,7 @@ namespace StriveSteady.Controllers
             return user;
         }
 
+        [HttpGet("User/GetByMail")]
         public async Task<User> GetUserByMail(string mail)
         {
 
@@ -146,7 +147,7 @@ namespace StriveSteady.Controllers
             return user;
         }
 
-        [HttpGet("LogIn")]
+        [HttpGet("User/LogIn")]
         public async Task<User> LogIn(string email, string password)
         {
             var user = await GetUserByMail(email);
@@ -199,7 +200,7 @@ namespace StriveSteady.Controllers
             return Ok(user);
         }
 
-        [HttpDelete("Users/delete/{id}")]
+        [HttpDelete("User/delete/{id}")]
         // GET: Users/Delete/5
         public async Task<ActionResult> Delete(int id)
         {
