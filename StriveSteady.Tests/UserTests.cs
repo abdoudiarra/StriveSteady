@@ -19,7 +19,7 @@ public class UserTests
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
-            .UseInMemoryDatabase(databaseName: "TestDatabase")
+            .UseInMemoryDatabase(databaseName: "UsersTestDatabase")
             .Options;
 
         _context = new StriveSteadyContext(options);

@@ -36,7 +36,8 @@ namespace StriveSteady.Controllers
                 Name = goal.Name,
                 Description = goal.Description,
                 ImportanceType = goal.ImportanceType,
-                StartDate = goal.EndDate,
+                StartDate = goal.StartDate,
+                EndDate = goal.EndDate,
                 GoalType = goal.GoalType,
                 Subtasks = goal.Subtasks,
                 IsChecked = goal.IsChecked
