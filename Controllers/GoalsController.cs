@@ -50,7 +50,7 @@ namespace StriveSteady.Controllers
         }
 
         //Delete Goal
-        [HttpGet("Goal/Delete")]
+        [HttpDelete("Goal/Delete")]
         public async Task<ActionResult> Delete(int id)
         {
             var goal = await GetGoalById(id);

@@ -15,7 +15,7 @@ namespace StriveSteady.Data
         {
         }
 
-        public DbSet<StriveSteady.Models.User> User { get; set; } = default!;
-        public DbSet<StriveSteady.Models.Goal> Goal { get; set; } = default!;
+        public DbSet<User> User { get; set; } = default!;
+        public DbSet<Goal> Goal { get; set; } = default!;
     }
 }
