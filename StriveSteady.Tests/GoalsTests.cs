@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using Microsoft.EntityFrameworkCore;
 using StriveSteady.Controllers;
 using StriveSteady.Data;
@@ -14,48 +15,83 @@ namespace StriveSteady.Tests
 		[Fact]
 		public async Task Goal_Creation_Success()
 		{
-            var options = new DbContextOptionsBuilder<StriveSteadyContext>()
-           .UseInMemoryDatabase(databaseName: "GoalsTestDatabase")
-           .Options;
+			var options = new DbContextOptionsBuilder<StriveSteadyContext>()
+		   .UseInMemoryDatabase(databaseName: "GoalsTestDatabase")
+		   .Options;
 
-            _context = new StriveSteadyContext(options);
-            _controller = new GoalsController(_context);
+			_context = new StriveSteadyContext(options);
+			_controller = new GoalsController(_context);
 
-            _context.Database.EnsureDeleted();
-            _context.Database.EnsureCreated();
 
-			var subtaskList = new List<Subtask>();
-
-			var goalCreate = new Goal
+			var goal = new Goal
 			{
-				Id = 51,
+				Id = 1,
 				Name = "Code",
 				Description = "At least code once a day",
 				ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
 				StartDate = DateTime.Now,
 				EndDate = DateTime.Now.AddDays(5),
 				GoalType = Enums.GoalType.Educational,
-                Subtasks = subtaskList,
-                IsChecked = false
-            };
+				Subtasks = new List<Subtask>(),
+				IsChecked = false
+			};
+
+			await _controller.CreateGoal(goal);
 
 
-            await _controller.CreateGoal(goalCreate);
+			var goalInDatabase = await _context.Goal.FirstOrDefaultAsync(g => g.Id == goal.Id);
 
-
-            var goalInDatabase = await _context.Goal.FirstOrDefaultAsync(g => g.Id == goalCreate.Id);
-            Assert.NotNull(goalInDatabase);
-        }
+			Assert.NotNull(goal);
+			Assert.NotNull(goalInDatabase);
+			Assert.Equal(goalInDatabase.Id, goal.Id);
+			Assert.Equal(goalInDatabase.Description, goal.Description);
+		}
 
 		//goal creation fail on required
 		[Fact]
 		public async Task Goal_Fail_On_Required()
 		{
+			var options = new DbContextOptionsBuilder<StriveSteadyContext>()
+		   .UseInMemoryDatabase(databaseName: "GoalsTestDatabase")
+		   .Options;
+
+			_context = new StriveSteadyContext(options);
+			_controller = new GoalsController(_context);
+
+
+			var goal = new Goal
+			{
+				Id = 1,
+				Name = "",
+				Description = "At least code once a day",
+				ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
+				StartDate = DateTime.Now,
+				EndDate = DateTime.Now.AddDays(5),
+				GoalType = Enums.GoalType.Educational,
+				Subtasks = new List<Subtask>(),
+				IsChecked = false
+			};
+
+
+			async Task<Goal> CreateAndReturnGoalAsync(Goal g)
+			{
+
+				var result = await _controller.CreateGoal(g);
+				return result;
+
+			}
+
+			var goalException = await Assert.ThrowsAsync<NullReferenceException>(() => CreateAndReturnGoalAsync(goal));
+			Assert.Equal("Invalid name (has to be at least 4 characters long)", goalException.Message);
 
 		}
-		//goal deletion success
-		[Fact]
-		public async Task Delete_Success()
+	
+
+
+        //goal creation fail on invalid date
+        //goal deletion success
+        [Fact]
+		public async Task Goal_Delete_Success()
 		{
 
 		}

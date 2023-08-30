@@ -28,9 +28,11 @@ namespace StriveSteady.Controllers
 
             if (goal.Name == null || goal.Name.Length < 4)
             {
-                throw new Exception("Invalid name (has to be at least 4 characters long)");
+                throw new NullReferenceException("Invalid name (has to be at least 4 characters long)");
             }
 
+            //StartDate had to be today or later
+            
             var goalCreate = new Goal
             {
                 Name = goal.Name,

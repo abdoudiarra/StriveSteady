@@ -15,7 +15,7 @@ public class UserTests
 
     [Fact]
     //Test that when a user registers, It is created in the database.
-    public async Task Test_Register()
+    public async Task User_Test_Register()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
@@ -49,7 +49,7 @@ public class UserTests
     }
 
     [Fact]
-    public async Task Returns_User_From_Database_When_LogIn()
+    public async Task User_Returns_User_From_Database_When_LogIn()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
@@ -111,7 +111,7 @@ public class UserTests
 
     //Testing registration security
     [Fact]
-    public async Task Registration_Fails_When_Required_Fields_Are_Null_Or_Empty()
+    public async Task User_Registration_Fails_When_Required_Fields_Are_Null_Or_Empty()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
@@ -151,7 +151,7 @@ public class UserTests
         {
             
             var result = await _controller.Register(u);
-            return result.Value; // Assuming your controller returns ActionResult<User>
+            return result.Value;
             
         }
 
@@ -163,7 +163,7 @@ public class UserTests
 
         //validate that both Password and PasswordRepeat are identical throw exception if not
     [Fact]
-    public async Task Both_Password_Edentical()
+    public async Task User_Both_Password_Edentical()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
@@ -204,7 +204,7 @@ public class UserTests
     //validate that the password is at least 5 characters long
 
     [Fact]
-    public async Task Password_Edentical_5_Characters_Minimum()
+    public async Task User_Password_Edentical_5_Characters_Minimum()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
@@ -244,7 +244,7 @@ public class UserTests
 
     //validate that the FirstName and LastName are both minimum 3 characters long
     [Fact]
-    public async Task FirstName_Lastname_Not_Long_Enough()
+    public async Task User_FirstName_Lastname_Not_Long_Enough()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
@@ -285,7 +285,7 @@ public class UserTests
     //Login test
     //User will Login using email and password.
     [Fact]
-    public async Task Returns_Correct_User_In_Login()
+    public async Task User_Returns_Correct_User_In_Login()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
@@ -347,7 +347,7 @@ public class UserTests
 
     
     [Fact]
-    public async Task Returns_Bad_Password_For_User()
+    public async Task User_Returns_Bad_Password_For_User()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
@@ -416,7 +416,7 @@ public class UserTests
     }
 
     [Fact]
-    public async Task Returns_User_Does_Not_Exist()
+    public async Task User_Returns_User_Does_Not_Exist()
     {
         //User a in-memory database to not touch the actual database
         var options = new DbContextOptionsBuilder<StriveSteadyContext>()
