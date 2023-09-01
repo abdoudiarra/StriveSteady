@@ -93,8 +93,46 @@ namespace StriveSteady.Tests
         [Fact]
 		public async Task Goal_Delete_Success()
 		{
+            var options = new DbContextOptionsBuilder<StriveSteadyContext>()
+                       .UseInMemoryDatabase(databaseName: "GoalsTestDatabase")
+                       .Options;
 
-		}
+            _context = new StriveSteadyContext(options);
+            _controller = new GoalsController(_context);
+
+
+            var goal = new Goal
+            {
+                Id = 7,
+                Name = "Code",
+                Description = "At least code once a day",
+                ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(5),
+                GoalType = Enums.GoalType.Educational,
+                Subtasks = new List<Subtask>(),
+                IsChecked = false
+            };
+
+            await _controller.CreateGoal(goal);
+
+
+            var goalInDatabase = await _context.Goal.FirstOrDefaultAsync(g => g.Id == goal.Id);
+
+            Assert.NotNull(goal);
+            Assert.NotNull(goalInDatabase);
+            Assert.Equal(goalInDatabase.Id, goal.Id);
+            Assert.Equal(goalInDatabase.Description, goal.Description);
+
+			await _controller.Delete(1);
+
+            var goalInDatabaseDelete = await _context.Goal.FirstOrDefaultAsync(g => g.Id == goal.Id);
+
+
+            Assert.Null(goalInDatabaseDelete);
+
+
+        }
 		//goal deletion fail due to not found
 		[Fact]
 		public async Task Goal_Fail_Not_Found()
