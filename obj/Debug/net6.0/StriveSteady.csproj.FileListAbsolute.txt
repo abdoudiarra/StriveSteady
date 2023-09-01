@@ -401,3 +401,6 @@
 /Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net6.0/zh-Hant/Microsoft.VisualStudio.TestPlatform.Common.resources.dll
 /Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll
 /Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net6.0/AutoMapper.dll
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net6.0/strivesteadyclient/package-lock.json
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net6.0/strivesteadyclient/package.json
+/Users/mac/Desktop/Projects/StriveSteady/StriveSteady/bin/Debug/net6.0/strivesteadyclient/public/manifest.json

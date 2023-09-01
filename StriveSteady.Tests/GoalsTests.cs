@@ -144,7 +144,30 @@ namespace StriveSteady.Tests
 		public async Task Goal_Get_Success()
 		{
 
-		}
+            var options = new DbContextOptionsBuilder<StriveSteadyContext>()
+                       .UseInMemoryDatabase(databaseName: "GoalsTestDatabase")
+                       .Options;
+
+            _context = new StriveSteadyContext(options);
+            _controller = new GoalsController(_context);
+
+
+            var goal = new Goal
+            {
+                Id = 7,
+                Name = "Code",
+                Description = "At least code once a day",
+                ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(5),
+                GoalType = Enums.GoalType.Educational,
+                Subtasks = new List<Subtask>(),
+                IsChecked = false
+            };
+
+            await _controller.CreateGoal(goal);
+
+        }
 		//goal get by id fail due to id not found
 		[Fact]
 		public async Task Goal_Get_Failed_Not_Found()
