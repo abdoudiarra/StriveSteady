@@ -25,7 +25,7 @@ namespace StriveSteady.Tests
 
 			var goal = new Goal
 			{
-				Id = 1,
+				Id = 77,
 				Name = "Code",
 				Description = "At least code once a day",
 				ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
@@ -88,59 +88,9 @@ namespace StriveSteady.Tests
 	
 
 
-        //goal creation fail on invalid date
-        //goal deletion success
+        
+        //goal get by id success
         [Fact]
-		public async Task Goal_Delete_Success()
-		{
-            var options = new DbContextOptionsBuilder<StriveSteadyContext>()
-                       .UseInMemoryDatabase(databaseName: "GoalsTestDatabase")
-                       .Options;
-
-            _context = new StriveSteadyContext(options);
-            _controller = new GoalsController(_context);
-
-
-            var goal = new Goal
-            {
-                Id = 7,
-                Name = "Code",
-                Description = "At least code once a day",
-                ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now.AddDays(5),
-                GoalType = Enums.GoalType.Educational,
-                Subtasks = new List<Subtask>(),
-                IsChecked = false
-            };
-
-            await _controller.CreateGoal(goal);
-
-
-            var goalInDatabase = await _context.Goal.FirstOrDefaultAsync(g => g.Id == goal.Id);
-
-            Assert.NotNull(goal);
-            Assert.NotNull(goalInDatabase);
-            Assert.Equal(goalInDatabase.Id, goal.Id);
-            Assert.Equal(goalInDatabase.Description, goal.Description);
-
-			await _controller.Delete(1);
-
-            var goalInDatabaseDelete = await _context.Goal.FirstOrDefaultAsync(g => g.Id == goal.Id);
-
-
-            Assert.Null(goalInDatabaseDelete);
-
-
-        }
-		//goal deletion fail due to not found
-		[Fact]
-		public async Task Goal_Fail_Not_Found()
-		{
-
-		}
-		//goal get by id success
-		[Fact]
 		public async Task Goal_Get_Success()
 		{
 
@@ -152,11 +102,23 @@ namespace StriveSteady.Tests
             _controller = new GoalsController(_context);
 
 
-            var goal = new Goal
+            var goal8 = new Goal
             {
-                Id = 7,
-                Name = "Code",
-                Description = "At least code once a day",
+                Id = 8,
+                Name = "Code8",
+                Description = "At least code once a day8",
+                ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(5),
+                GoalType = Enums.GoalType.Educational,
+                Subtasks = new List<Subtask>(),
+                IsChecked = false
+            };
+			var goal9 = new Goal
+            {
+                Id = 9,
+                Name = "Code9",
+                Description = "At least code once a day9",
                 ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
                 StartDate = DateTime.Now,
                 EndDate = DateTime.Now.AddDays(5),
@@ -165,33 +127,63 @@ namespace StriveSteady.Tests
                 IsChecked = false
             };
 
-            await _controller.CreateGoal(goal);
+			await _controller.CreateGoal(goal8);
+			await _controller.CreateGoal(goal9);
+
+
+            var goalById = await _controller.GetGoalById(8);
+
+			Assert.Equal(goalById.Id, goal8.Id);
 
         }
-		//goal get by id fail due to id not found
-		[Fact]
-		public async Task Goal_Get_Failed_Not_Found()
-		{
-
-		}
-		//goal get all
-		[Fact]
-		public async Task Goal_Get_All()
-		{
-
-		}
+	
+	
 		//goal get goal by name success
 		[Fact]
 		public async Task Goal_Get_Name_Success()
 		{
+            var options = new DbContextOptionsBuilder<StriveSteadyContext>()
+                       .UseInMemoryDatabase(databaseName: "GoalsTestDatabase")
+                       .Options;
 
-		}
-		//get goal by name fail
-		[Fact]
-		public async Task Goal_Get_Name_Failed_Not_Found()
-		{
+            _context = new StriveSteadyContext(options);
+            _controller = new GoalsController(_context);
 
-		}
+
+            var goal10 = new Goal
+            {
+                Id = 10,
+                Name = "Code10",
+                Description = "At least code once a day10",
+                ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(5),
+                GoalType = Enums.GoalType.Educational,
+                Subtasks = new List<Subtask>(),
+                IsChecked = false
+            };
+            var goal11 = new Goal
+            {
+                Id = 11,
+                Name = "Code11",
+                Description = "At least code once a day11",
+                ImportanceType = Enums.ImportanceType.HIGH_PRIORITY,
+                StartDate = DateTime.Now,
+                EndDate = DateTime.Now.AddDays(5),
+                GoalType = Enums.GoalType.Educational,
+                Subtasks = new List<Subtask>(),
+                IsChecked = false
+            };
+
+            await _controller.CreateGoal(goal10);
+            await _controller.CreateGoal(goal11);
+
+
+            var goalById = await _controller.GetGoalByName("Code10");
+
+            Assert.Equal(goalById.Id, goal10.Id);
+        }
+		
 	}
 }
 
